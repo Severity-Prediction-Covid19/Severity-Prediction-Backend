@@ -1,15 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const app = express()
+require('dotenv').config()
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-var route = require("./src/routes")
-route(app)
-
-const port = process.env.PORT || 3000
-const host = process.env.HOST || 'localhost'
+const port = process.env.PORT
+const host = process.env.DB_HOST
 
 app.listen(port, () => {
     console.log(`Server started on ${port} and running at host ${host}`);
