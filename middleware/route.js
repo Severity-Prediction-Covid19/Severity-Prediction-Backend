@@ -1,7 +1,7 @@
 const express = require('express')
-var auth = require('./auth')
+var auth = require('./login')
 var router = express.Router()
 
-router.post('/api/v1/register', auth.regist)
+router.post('/api/v1/register', login.regist)
 
 module.exports = router
