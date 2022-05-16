@@ -6,6 +6,9 @@ require('dotenv').config()
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+var route = require("./testrun")
+route(app)
+
 const port = process.env.PORT
 const host = process.env.DB_HOST
 
