@@ -1,5 +1,5 @@
 const express = require('express')
-var auth = require('./login')
+var login = require('./login')
 var router = express.Router()
 
 router.post('/api/v1/register', login.regist)
