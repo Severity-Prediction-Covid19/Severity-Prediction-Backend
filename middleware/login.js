@@ -1,14 +1,15 @@
 var con = require('../connection')
 var mysql = require('mysql')
 var md5 = require('md5')
+const { nanoid } = require('nanoid');
 
 exports.regist = function (req, res) {
+    var id = nanoid(16)
     var post = {
         username: req.body.username,
         email: req.body.email,
         password: md5(req.body.password),
         no_telp: req.body.no_telp,
-        tanggal_lahir: new Date(),
     }
 
     var query = 'select email from ?? where ?? = ?'
@@ -21,24 +22,34 @@ exports.regist = function (req, res) {
             console.log(error)
         } else {
             if (rows.length == 0) {
+                var data = {
+                    id_user: 'user-'+id,
+                    username: post.username,
+                    email: post.email,
+                    password: post.password,
+                    no_telp: post.no_telp
+                }
                 var query = 'insert into ?? set ?'
                 var table = ['user']
-
                 query = mysql.format(query, table)
-                con.query(query, post, function (error, rows) {
+                con.query(query, data, function (error, rows) {
                     if (error) {
-                        console.log(error)
+                        res.status(500).json({
+                            success: false,
+                            error: error
+                        })
                     } else {
                         res.status(200).json({
                             success: true,
                             message: 'Registration succeed'
+
                         });
                     }
                 })
             } else {
                 res.status(400).json({
                     success: false,
-                    message: 'Email has been registered'
+                    message: 'Email has been registered. Registration failed'
                 });
             }
         }
@@ -49,8 +60,8 @@ exports.regist = function (req, res) {
     var post = {
         email: req.body.email,
         password: req.body.password
-    }
-
+    } 
+    
     var query = "select * from ?? where ?? = ? and ?? = ?"
     var table = ['user', 'email', post.email, 'password', md5(post.password)]
 
@@ -68,19 +79,17 @@ exports.regist = function (req, res) {
                     username: username, 
                 }
                 res.status(200).json({
-                    success: true,
+                    error: false,
+                    userId: data.id_user,
+                    userName: data.username,
                     message: 'Login success',
-                    currUser: data.id_user,
-                    nameUser: data.username
                 })
             }else{
-                  if(rows.length !== 1){
-                    res.status(400).json({
-                    success: false,
-                    message: 'Wrong email or password!'
-                    })
-                }
+                res.status(404).json({
+                error: true,
+                message: 'Wrong e-mail or password!'
+                })   
             } 
         }
-    })
-} 
+    }) 
+}  
