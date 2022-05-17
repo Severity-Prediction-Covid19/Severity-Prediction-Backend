@@ -1,7 +1,6 @@
 var con = require('../connection')
 var mysql = require('mysql')
 var md5 = require('md5')
-var response = require('../res')
 
 exports.regist = function (req, res) {
     var post = {
@@ -30,11 +29,17 @@ exports.regist = function (req, res) {
                     if (error) {
                         console.log(error)
                     } else {
-                        response.ok('Registration succeed', res)
+                        res.status(200).json({
+                            success: true,
+                            message: 'Registration succeed'
+                        });
                     }
                 })
             } else {
-                response.ok('Email has been registered', res)
+                res.status(400).json({
+                    success: false,
+                    message: 'Email has been registered'
+                });
             }
         }
     })
@@ -69,11 +74,13 @@ exports.regist = function (req, res) {
                     nameUser: data.username
                 })
             }else{
-                res.status(400).json({
-                    "success": false,
-                    "message": 'Wrong email or password!'
-                })
-            }
+                  if(rows.length !== 1){
+                    res.status(400).json({
+                    success: false,
+                    message: 'Wrong email or password!'
+                    })
+                }
+            } 
         }
     })
 } 

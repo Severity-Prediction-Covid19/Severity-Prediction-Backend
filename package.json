@@ -1,0 +1,31 @@
+{
+  "name": "analisis-covid-capstone",
+  "version": "1.0.0",
+  "description": "Repository for MyApp backend using NodeJS for CRUD with RESTful API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MuhamadFaheem/analisis-covid-capstone.git"
+  },
+  "keywords": [
+    "REST",
+    "API",
+    "Nodejs"
+  ],
+  "author": "Faheem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MuhamadFaheem/analisis-covid-capstone/issues"
+  },
+  "homepage": "https://github.com/MuhamadFaheem/analisis-covid-capstone#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "md5": "^2.3.0",
+    "mysql": "^2.18.1"
+  }
+}
