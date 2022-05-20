@@ -6,6 +6,7 @@ require('dotenv').config()
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+//untuk menjalankan routes url
 var route = require("./testrun")
 route(app)
 

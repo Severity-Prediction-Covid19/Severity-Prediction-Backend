@@ -1,7 +1,11 @@
 'use strict'
 
 module.exports = function (app) {
-    var myjson = require("./controller")
+    var myjson = require("./controller");
+    
     app.route("/")
-        .get(myjson.index)
+        .get(myjson.index);
+
+    app.route("/tambahRiwayat")
+        .post(myjson.riwayat);
 }
