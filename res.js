@@ -1,4 +1,5 @@
-'use strict'
+//this file can be deleted
+/* 'use strict'
 
 exports.ok = function (values, res) {
     var data = {
@@ -8,4 +9,4 @@ exports.ok = function (values, res) {
 
     res.json(data)
     res.end()
-}
+} */

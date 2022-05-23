@@ -2,4 +2,4 @@ package.json
 .gitignore
 package-lock.json
 node_modules
-.env git 
+.env

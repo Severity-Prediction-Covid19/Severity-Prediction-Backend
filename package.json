@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
-
   },
   "repository": {
     "type": "git",
@@ -29,7 +28,9 @@
     "express": "^4.18.1",
     "md5": "^2.3.0",
     "mysql": "^2.18.1",
-    "nanoid": "^3.3.4",
+    "nanoid": "^3.3.4"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.16"
   }
 }

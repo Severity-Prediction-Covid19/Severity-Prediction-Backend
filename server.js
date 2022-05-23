@@ -7,7 +7,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 //untuk menjalankan routes url
-var route = require("./testrun")
+var route = require("./route")
 route(app)
 
 const port = process.env.PORT

@@ -1,15 +1,14 @@
 var con = require('../connection')
 var mysql = require('mysql')
 var md5 = require('md5')
-const { nanoid } = require('nanoid');
+const { nanoid } = require('nanoid')
 
 exports.regist = function (req, res) {
     var id = nanoid(16)
     var post = {
         username: req.body.username,
         email: req.body.email,
-        password: md5(req.body.password),
-        no_telp: req.body.no_telp,
+        password: md5(req.body.password)
     }
 
     var query = 'select email from ?? where ?? = ?'
@@ -19,15 +18,17 @@ exports.regist = function (req, res) {
 
     con.query(query, function (error, rows) {
         if (error) {
-            console.log(error)
+            res.status(500).json({
+                success: false,
+                error: error
+            })
         } else {
             if (rows.length == 0) {
                 var data = {
                     id_user: 'user-'+id,
                     username: post.username,
                     email: post.email,
-                    password: post.password,
-                    no_telp: post.no_telp
+                    password: post.password
                 }
                 var query = 'insert into ?? set ?'
                 var table = ['user']
@@ -41,8 +42,13 @@ exports.regist = function (req, res) {
                     } else {
                         res.status(200).json({
                             success: true,
-                            message: 'Registration succeed'
-
+                            message: 'Registration succeed',
+                            data:({
+                                id_user: 'user-'+id,
+                                username: post.username,
+                                email: post.email,
+                                password: post.password,
+                            })
                         });
                     }
                 })
@@ -56,7 +62,7 @@ exports.regist = function (req, res) {
     })
 }
 
- exports.login = function (req, res){
+exports.login = function (req, res){
     var post = {
         email: req.body.email,
         password: req.body.password
@@ -92,4 +98,4 @@ exports.regist = function (req, res) {
             } 
         }
     }) 
-}  
+} 
