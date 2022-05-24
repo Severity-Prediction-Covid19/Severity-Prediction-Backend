@@ -1,11 +1,12 @@
 'use strict';
 const con = require('./connection');
 var mysql = require('mysql')
+var md5 = require('md5')
 
 exports.index = function (req, res) {
     res.status(200).json({
         success: true,
-        message: 'Data has found'
+        message: 'REST API is working'
     })
 }
 
@@ -15,7 +16,7 @@ exports.showUserHistory = function (req, res) {
     con.query('select * from riwayat where id_user = ?', [id], function (error, rows, fields) {
         res.status(200).json({
             success: true,
-            message: 'Data has found',
+            message: 'History fetched successfully',
             data: ({
                 history: rows
             })
@@ -29,7 +30,7 @@ exports.getUserProfile = function (req, res) {
     con.query('select * from user where id_user = ?', [id], function (error, rows) {
         res.status(200).json({
             success: true,
-            message: 'Success',
+            message: 'Data fetched successfully',
             userProfile: ({
                 data: rows
             })
@@ -37,8 +38,7 @@ exports.getUserProfile = function (req, res) {
     })
 }
 
-exports.deletebyId = function (req, res) {
-    //let id = req.params.id
+exports.deleteUserbyId = function (req, res) {
     var query = "delete from ?? where ?? = ?"
     var table = ['user', 'id_user', req.body.id_user]
     query = mysql.format(query, table)
@@ -50,7 +50,7 @@ exports.deletebyId = function (req, res) {
             })
         } else if (!error) {
             res.status(200).json({
-                error: false,
+                success: true,
                 message: 'User with id = ' +req.body.id_user+' has deleted'
             })
         }
@@ -58,8 +58,9 @@ exports.deletebyId = function (req, res) {
 }
 
 exports.editUserProfile = function (req, res) {
-    var query = "update ?? set ?? = ? where ?? = ?"
-    var table = ['user', 'username', req.body.username, 'id_user', req.body.id_user]
+    var query = "update ?? set ?? = ?, ?? = ?, ?? = ? where ?? = ?"
+    var table = ['user', 'username', req.body.username, 'email', req.body.email, 'password', md5(req.body.password),'id_user', req.body.id_user]
+
     query = mysql.format(query, table)
     con.query(query, function (error, rows) {
         if (error) {
@@ -69,15 +70,12 @@ exports.editUserProfile = function (req, res) {
             })
         } else if (!error) {
             res.status(200).json({
-                error: false,
-                message: 'Data has changed',
+                success: true,
+                message: 'Data user with id '+req.body.id_user+' has updated',
                 id_user: req.body.id_user,
-                userName: req.body.username
-            })
-        } else {
-            res.status(404).json({
-                error: true,
-                message: 'Data not found'
+                userName: req.body.username,
+                email: req.body.email,
+                password: md5(req.body.password)
             })
         }
     })
@@ -93,38 +91,15 @@ exports.postTest = function (req, res){
     }
 
     con.query('INSERT INTO riwayat set ?', post, function(error, rows, fields){
-        //For checking overall fields if there any blank field when input data
-        /*if(params.id_user === '' ||params.keterangan === '' || params.nama_obat === '' ||params.nama_diagnosis === '' ||params.date === ''){
-            res.status(400).json({
-                success: false,
-                message: "There is a blank field. Please re-check your data before submit"
-            }) */
-        if(post.id_user === ''){ 
+        if (error){
             res.status(500).json({
                 success: false,
-                message: "please define id of user"
+                error: error
             })
-        } else if(post.keterangan === ''){
-            res.status(500).json({
-                success: false,
-                message: "please define keterangan"
-            })
-        }else if(post.nama_obat === ''){
-            res.status(500).json({
-                success: false,
-                message: "please define nama obat"
-            })
-        }else if(post.nama_diagnosis === ''){
-            res.status(500).json({
-                success: false,
-                message: "please define nama diagnosis"
-            })
-        }else if (error){
-            console.log(error)
         }else{
             res.status(200).json({
             success: true,
-            message: 'Data succesfully send',
+            message: 'Test sent succesfully',
             history:({
                 data:({
                     id_user: post.id_user,
@@ -141,7 +116,7 @@ exports.postTest = function (req, res){
 
 exports.deleteHistorybyId = function(req,res){
     var query = "delete from ?? where ?? = ?"
-    var table = ['riwayat', 'id_riwayat', req.body.id_user]
+    var table = ['riwayat', 'id_riwayat', req.body.id_riwayat]
     query = mysql.format(query, table)
     con.query(query, function (error, rows) {
         if (error) {
@@ -151,8 +126,8 @@ exports.deleteHistorybyId = function(req,res){
             })
         } else if (!error) {
             res.status(200).json({
-                error: false,
-                message: 'Data has deleted'
+                success: true,
+                message: 'History with id = '+req.body.id_riwayat+' has deleted'
             })
         }
     })

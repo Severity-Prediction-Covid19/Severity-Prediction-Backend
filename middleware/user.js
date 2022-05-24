@@ -74,7 +74,10 @@ exports.login = function (req, res){
     query = mysql.format(query, table)
     con.query(query, function(error, rows){
         if(error){
-            console.log(error)
+            res.status(500).json({
+                success: false,
+                error: error
+            }) 
         }else{
             if(rows.length == 1){
                 id_user = rows[0].id_user
@@ -85,14 +88,14 @@ exports.login = function (req, res){
                     username: username, 
                 }
                 res.status(200).json({
-                    error: false,
+                    success: true,
                     userId: data.id_user,
                     userName: data.username,
                     message: 'Login success',
                 })
             }else{
                 res.status(404).json({
-                error: true,
+                success: false,
                 message: 'Wrong e-mail or password!'
                 })   
             } 
