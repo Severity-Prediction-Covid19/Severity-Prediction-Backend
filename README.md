@@ -10,5 +10,5 @@ Project is created with:
 * Google Cloud SQL
 * Google App Engine
 
-## Step to Set Up ##
+## Deploy To GCP ##
 
