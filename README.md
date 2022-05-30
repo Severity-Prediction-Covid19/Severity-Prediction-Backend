@@ -8,7 +8,7 @@ Project is created with:
 * Node version: 
 * NPM version: 
 * Google Cloud SQL
-* Goole App Engine
+* Google App Engine
 
 ## Step to Set Up ##
 
