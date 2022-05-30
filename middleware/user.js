@@ -40,7 +40,7 @@ exports.regist = function (req, res) {
                             error: error
                         })
                     } else {
-                        res.status(200).json({
+                        res.status(201).json({
                             success: true,
                             message: 'Registration succeed',
                             data:({
@@ -53,7 +53,7 @@ exports.regist = function (req, res) {
                     }
                 })
             } else {
-                res.status(400).json({
+                res.status(409).json({
                     success: false,
                     message: 'Email has been registered. Registration failed'
                 });
@@ -94,7 +94,7 @@ exports.login = function (req, res){
                     message: 'Login success',
                 })
             }else{
-                res.status(404).json({
+                res.status(401).json({
                 success: false,
                 message: 'Wrong e-mail or password!'
                 })   

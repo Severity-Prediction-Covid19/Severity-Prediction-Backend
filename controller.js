@@ -2,6 +2,7 @@
 const con = require('./connection');
 var mysql = require('mysql')
 var md5 = require('md5')
+const { nanoid } = require('nanoid')
 
 exports.index = function (req, res) {
     res.status(200).json({
@@ -55,7 +56,7 @@ exports.deleteUserbyId = function (req, res) {
             })
         }
     })
-}
+}   
 
 exports.editUserProfile = function (req, res) {
     var query = "update ?? set ?? = ?, ?? = ?, ?? = ? where ?? = ?"
@@ -82,7 +83,9 @@ exports.editUserProfile = function (req, res) {
 }
 
 exports.postTest = function (req, res){
+    var id = nanoid(16)
     var post = {
+        id_riwayat: 'test-'+id,
         id_user: req.body.id_user,
         nama_diagnosis: req.body.nama_diagnosis,
         nama_obat: req.body.nama_obat,
@@ -97,16 +100,17 @@ exports.postTest = function (req, res){
                 error: error
             })
         }else{
-            res.status(200).json({
+            res.status(201).json({
             success: true,
-            message: 'Test sent succesfully',
+            message: 'Test created succesfully',
             history:({
                 data:({
+                    id_riwayat: 'test-'+id,
                     id_user: post.id_user,
                     nama_diagnosis: post.nama_diagnosis,
                     nama_obat: post.nama_obat,
                     keterangan: post.keterangan,
-                    date: Date()
+                    date: post.date
                     })
                 })
             })

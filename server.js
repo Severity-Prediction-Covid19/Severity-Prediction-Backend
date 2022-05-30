@@ -10,8 +10,8 @@ app.use(bodyParser.json());
 var route = require("./route")
 route(app)
 
-const port = process.env.PORT
-const host = process.env.DB_HOST
+const port = process.env.PORT || 4000
+const host = process.env.DB_HOST || 'localhost'
 
 app.use('/auth', require('./middleware/routes'))
 
