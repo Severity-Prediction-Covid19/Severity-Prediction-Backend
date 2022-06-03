@@ -6,10 +6,19 @@ See the documentation for use REST Api [[Documentation]](https://docs.google.com
 
 ## Technologies ##
 Project is created with:
-* Node version: 
-* NPM version: 
-* Google Cloud SQL
+* Node version: V16.1.0
+* NPM version: V8.10.0
+* Google Cloud SQL: MySQL 8.0
 * Google App Engine
 
 ## Deploy To GCP ##
+Follow the Step to run on GCP, Using NPM
+
+``` bash
+# clone your repository 
+$ git clone https://github.com/Severity-Prediction-Covid19/Severity-Prediction-Backend.git
+
+# go to into app's directory
+$ cd Severity-Prediction-Backend
+```
 
