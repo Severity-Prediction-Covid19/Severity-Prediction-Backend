@@ -22,3 +22,32 @@ $ git clone https://github.com/Severity-Prediction-Covid19/Severity-Prediction-B
 $ cd Severity-Prediction-Backend
 ```
 
+> Configuration Database
+```
+- Rename .env.ex to .env
+- Change configuration with your database (this app using MySQL) : 
+DB_HOST=<YOUR_DATABASE_LOCALHOST>
+DB_PORT=<YOUR_DATABASE_PORT>
+DB_USER=<YOUR_DATABASE_USER>
+DB_PASS=<YOUR_DATABASE_PASSWORD>
+DB_NAME=<YOUR_DATABASE_NAME>
+PORT=<YOUR_PORT>
+```
+
+> Configuration Node Module
+```
+# Install the dependencies in node_modules folder
+npm install
+
+# Run backend 
+npm start
+```
+
+> Deploy backend to Google Cloud App Engine
+```
+# Initialize your SDK
+gcloud init
+
+# Deploy to Google Cloud App Engine
+gcloud app deploy
+```
