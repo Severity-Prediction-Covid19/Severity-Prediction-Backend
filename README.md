@@ -11,6 +11,11 @@ Project is created with:
 * Google Cloud SQL: MySQL 8.0
 * Google App Engine
 
+## Create Google Cloud SQL (MySQL)
+1. Create and Setup your Cloud Sql
+2. Open Folder Database 
+3. Import db.sql to Cloud Sql
+
 ## Deploy To GCP ##
 Follow the Step to run on GCP, Using NPM
 
